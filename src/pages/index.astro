@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MotionCard from '../components/MotionCard';
+---
+
+<Layout title="Portfolio | Astro + Tailwind + Framer Motion + GSAP">
+  <main class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+    <!-- Header Hero -->
+    <header class="space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-stone-800/15 bg-white/40 text-xs font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+        Astro v7 + Tailwind v4 + Motion + GSAP + OpenSpec
+      </div>
+      <h1 id="hero-title" class="text-5xl sm:text-7xl font-black tracking-tight text-stone-900 uppercase font-['Anton',sans-serif]">
+        Creative Developer
+      </h1>
+      <p id="hero-desc" class="text-lg text-stone-700 max-w-2xl leading-relaxed">
+        Modern creative development environment configured with Astro, Tailwind CSS, Motion/Framer Motion, GSAP animation orchestration, and OpenSpec spec-driven workflows.
+      </p>
+    </header>
+
+    <!-- Cards Section -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Framer Motion Card (React Island) -->
+      <MotionCard
+        client:load
+        title="Framer Motion + React Island"
+        subtitle="Zero-overhead client-side animation powered by Astro Island architecture and Framer Motion."
+        tech={["framer-motion", "react", "astro-islands"]}
+      />
+
+      <!-- GSAP Animated Card -->
+      <div
+        id="gsap-card"
+        class="p-6 rounded-2xl bg-amber-50/80 border border-stone-800/10 shadow-sm backdrop-blur-md transition-shadow hover:shadow-xl"
+      >
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs uppercase tracking-widest font-mono text-stone-600 font-semibold">
+            GSAP & Vanilla Motion
+          </span>
+          <span id="gsap-badge" class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+        </div>
+        <h3 class="text-2xl font-bold text-stone-900 mb-1">GSAP Timeline Engine</h3>
+        <p class="text-stone-600 text-sm mb-4">
+          Robust timeline choreography and scroll interactions configured via GSAP 3.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-2.5 py-1 text-xs rounded-md bg-stone-900 text-amber-100 font-mono">gsap</span>
+          <span class="px-2.5 py-1 text-xs rounded-md bg-stone-900 text-amber-100 font-mono">motion</span>
+          <span class="px-2.5 py-1 text-xs rounded-md bg-stone-900 text-amber-100 font-mono">timeline</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Access / Existing Pages -->
+    <section class="p-6 rounded-2xl border border-stone-800/10 bg-white/50 backdrop-blur-sm space-y-4">
+      <h2 class="text-xl font-bold text-stone-900">Project Tools & OpenSpec</h2>
+      <p class="text-sm text-stone-700">
+        OpenSpec is initialized in this project with AI specs ready in <code class="px-1.5 py-0.5 rounded bg-stone-200 text-stone-900 font-mono text-xs">openspec/</code>.
+      </p>
+      <div class="flex flex-wrap gap-3 pt-2">
+        <a
+          href="/portfolio.html"
+          class="px-4 py-2 rounded-lg bg-stone-900 text-amber-100 text-sm font-medium hover:bg-stone-800 transition"
+        >
+          View Static portfolio.html
+        </a>
+        <a
+          href="/index.html"
+          class="px-4 py-2 rounded-lg bg-stone-200 text-stone-900 text-sm font-medium hover:bg-stone-300 transition"
+        >
+          View Static index.html
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    import gsap from 'gsap';
+    import { animate } from 'motion';
+
+    // GSAP Animation
+    gsap.from('#hero-title', {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+    });
+
+    gsap.from('#hero-desc', {
+      y: 20,
+      opacity: 0,
+      duration: 0.8,
+      delay: 0.2,
+      ease: 'power3.out',
+    });
+
+    // Vanilla Motion interaction
+    const gsapCard = document.getElementById('gsap-card');
+    if (gsapCard) {
+      gsapCard.addEventListener('mouseenter', () => {
+        animate(gsapCard, { scale: 1.02 }, { duration: 0.2 });
+      });
+      gsapCard.addEventListener('mouseleave', () => {
+        animate(gsapCard, { scale: 1 }, { duration: 0.2 });
+      });
+    }
+  </script>
+</Layout>

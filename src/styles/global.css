@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+:root {
+  --bg-color: #E8DCC4;
+  --bg-transparent: rgba(232, 220, 196, 0.85);
+  --text-main: #1C1A17;
+  --text-muted: #736B5E;
+  --accent: #E5B13A;
+  --hero-pure: #F5F0E6;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  overflow-x: hidden;
+}

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEKDesign | Creative Developer</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- LENIS SCROLL CORE --- */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* --- GLOBAL STYLES: WARM STUDIO COLOR SPACE --- */
+        :root {
+            --bg-color: #E8DCC4;
+            --bg-transparent: rgba(232, 220, 196, 0.85);
+            --text-main: #1C1A17;
+            --text-muted: #736B5E;
+            --accent: #E5B13A;
+            --hero-pure: #F5F0E6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: transparent;
+            color: var(--text-main);
+            overflow-x: hidden;
+            cursor: default; 
+        }
+
+        /* --- BACKGROUND SUB-LAYER --- */
+        .bg-core {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -50;
+            overflow: hidden;
+            background: #111; 
+        }
+        
+        .bg-core img {
+            position: absolute;
+            top: -20vh; left: 0; 
+            width: 100vw; height: 120vh; 
+            object-fit: cover;
+            will-change: transform;
+            opacity: 0.85;
+            filter: sepia(0.3) saturate(0.8) contrast(1.1) brightness(0.9);
+        }
+
+        /* --- NOISE TEXTURE --- */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999; 
+            opacity: 0.25; 
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        /* --- NATIVE GLASSMORPHISM --- */
+        .native-glass {
+            background-color: rgba(232, 220, 196, 0.65); 
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 2px solid var(--text-main);
+        }
+
+        /* --- SOLID STATE NAV INVERSION (HOVER EFFECT) --- */
+        .nav-link {
+            position: relative;
+            padding: 0.2rem 0.6rem;
+            z-index: 1;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+        .nav-link:hover {
+            color: var(--text-main) !important;
+            text-shadow: none !important;
+        }
+        .nav-link:hover::before {
+            transform: scaleY(1);
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .font-anton { font-family: 'Anton', sans-serif; }
+        .font-mono-custom { font-family: 'JetBrains Mono', monospace; }
+
+        .font-vision {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4.5rem, 18vw, 18rem);
+            line-height: 0.75;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .section-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        /* --- PARALLAX HERO COMPOSITE --- */
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 2px solid var(--hero-pure);
+            background-color: transparent;
+        }
+
+        .hero-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(28,26,23,0.3) 100%); 
+            z-index: 25; 
+            pointer-events: none;
+        }
+
+        .layer-text {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; text-align: center;
+        }
+        
+        .layer-back { z-index: 10; }
+        .text-solid { color: var(--hero-pure); }
+
+        .hero-object-layer {
+            position: absolute;
+            z-index: 20; 
+            bottom: -5%;
+            width: 80vw;
+            max-width: 600px; 
+            object-fit: contain;
+            filter: sepia(0.2) saturate(0.9) contrast(1.1);
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
+            pointer-events: none;
+        }
+
+        .layer-front { z-index: 30; pointer-events: none; }
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 3px var(--hero-pure);
+        }
+
+        /* --- SQUARE ACCENT PILLS --- */
+        .skill-pill {
+            background: transparent;
+            border: 2px solid var(--text-main);
+            border-radius: 0px; 
+            padding: 8px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+        .skill-pill:hover {
+            background: var(--accent); 
+            border-color: var(--accent);
+            color: var(--text-main);
+        }
+
+        .motion-clip { clip-path: inset(100% 0 0 0); }
+        .hero-text-load { transform: translateY(50px); opacity: 0; }
+        .motion-slide-up { transform: translateY(50px); opacity: 0; }
+        .motion-stagger-back, .motion-stagger-front { 
+            display: inline-block; transform: translateY(100%); opacity: 0; 
+        }
+
+        /* --- ACTION BUTTONS HOVER --- */
+        .action-button:hover {
+            background: var(--accent) !important;
+            border-color: var(--accent) !important;
+            color: var(--text-main) !important;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#E5B13A] selection:text-[#1C1A17]">
+
+    <div class="bg-core">
+        <img id="bg-image" src="bg.png" alt="Background Core Image">
+    </div>
+
+    <div id="boot-sequence" class="fixed inset-0 z-[10000] bg-[#1C1A17] flex flex-col items-center justify-center pointer-events-auto">
+        <div class="overflow-hidden mb-6">
+            <h1 class="font-anton text-[var(--bg-color)] tracking-tighter" style="font-size: clamp(3rem, 8vw, 8rem); line-height: 0.8;">WAKING UP</h1>
+        </div>
+        
+        <div class="w-64 md:w-96 h-1 bg-[#2C2924] relative overflow-hidden">
+            <div id="boot-progress" class="absolute top-0 left-0 h-full bg-accent w-0"></div>
+        </div>
+        <p id="boot-log" class="font-mono-custom text-[var(--bg-color)] opacity-70 mt-4 text-xs md:text-sm uppercase tracking-widest">Gathering pixels...</p>
+    </div>
+
+    <div class="noise-overlay"></div>
+
+    <header class="fixed top-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center border-b-2 border-transparent transition-all duration-300" id="navbar">
+        <div class="motion-nav relative z-10">
+            <a href="#" class="text-3xl md:text-4xl font-anton uppercase tracking-tighter no-underline text-[var(--hero-pure)] drop-shadow-md transition-colors nav-link">
+                FEKDESIGN
+            </a>
+        </div>
+        
+        <nav class="hidden md:flex gap-8 uppercase font-mono-custom text-sm motion-nav relative z-10">
+            <a href="#about" class="no-underline text-[var(--hero-pure)] drop-shadow-md nav-link">01. About</a>
+            <a href="#projects" class="no-underline text-[var(--hero-pure)] drop-shadow-md nav-link">02. Work</a>
+            <a href="#logs" class="no-underline text-[var(--hero-pure)] drop-shadow-md nav-link">03. Journal</a>
+        </nav>
+
+        <div class="text-right hidden md:block motion-nav font-mono-custom relative z-10">
+            <p class="text-[10px] tracking-widest uppercase text-[var(--hero-pure)] opacity-70 mb-1 drop-shadow-md">Based in</p>
+            <p class="text-sm text-[var(--hero-pure)] drop-shadow-md">Copenhagen</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-container">
+            <div class="layer-text layer-back" id="parallax-text-back">
+                <span class="font-vision text-solid" id="hero-title-back">WELCOME</span>
+            </div>
+
+            <img src="hero-object.png" 
+                 alt="Main Visual Component" 
+                 class="hero-object-layer motion-clip" 
+                 id="hero-model"
+                 style="clip-path: inset(100% 0 0 0);">
+
+            <div class="layer-text layer-front" id="parallax-text-front">
+                <span class="font-vision text-outline" id="hero-title-front">WELCOME</span>
+            </div>
+
+            <div class="absolute bottom-0 w-full z-40 px-6 md:px-12 pb-8 pt-32 bg-gradient-to-t from-[var(--bg-color)] via-[var(--bg-transparent)] to-transparent pointer-events-none">
+                <div class="container mx-auto flex flex-col md:flex-row justify-between items-end pointer-events-auto">
+                    <div class="w-full md:w-1/2 hero-text-load">
+                        <h1 class="text-3xl md:text-5xl font-anton uppercase leading-none tracking-tighter text-[var(--text-main)]">
+                            Felix<br>Koesgaard
+                        </h1>
+                    </div>
+                    <div class="text-[var(--text-main)] leading-tight text-left md:text-right font-mono-custom w-full md:w-1/3 mt-6 md:mt-0 hero-text-load text-xs">
+                        <p class="uppercase font-bold opacity-80">
+                            Creative Developer<br>
+                            Crafting digital experiences<br>
+                            technology meets aesthetics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 md:py-32 relative z-30 border-b-2 border-[var(--text-main)] bg-[var(--bg-color)]">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="flex flex-col lg:flex-row gap-8 md:gap-16">
+                    <div class="w-full lg:w-5/12 motion-slide-up">
+                        <h2 class="section-title">FORM &<br><span class="text-accent">FLOW.</span></h2>
+                    </div>
+                    <div class="w-full lg:w-7/12 text-sm md:text-lg uppercase leading-relaxed font-mono-custom text-[var(--text-main)] motion-slide-up mt-2 lg:mt-4">
+                        <p class="mb-6 font-bold">
+                            Code is just another medium. A well written function should translate into a beautifully felt interface.
+                        </p>
+                        <p class="mb-6 text-[var(--text-muted)] font-normal">
+                            My background is in Multimediadesign, my focus is on the human experience. I build web environments that are mindful, tactile, and inherently creative. Less about forcing engagement, more about inviting exploration.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mt-10" id="skill-container">
+                            <span class="skill-pill">Frontend Architecture</span>
+                            <span class="skill-pill">UX/UI Design</span>
+                            <span class="skill-pill">Adobe</span>
+                            <span class="skill-pill">Several Framework Ecosystems</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full h-[35vh] mt-24 relative overflow-hidden border-2 border-[var(--text-main)] motion-scale-img motion-clip">
+                    <img src="ferris-wheel-splash.JPG" class="w-full h-full object-cover" alt="Creative Blueprint">
+                    <div class="absolute inset-0 bg-[var(--bg-color)] opacity-10 mix-blend-color-burn"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-32 relative z-20 border-b-2 border-[var(--text-main)] bg-[var(--bg-color)]">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 motion-slide-up gap-8">
+                    <div>
+                        <h2 class="section-title mb-0">SELECTED<br>WORKS</h2>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 lg:mt-0">
+                        <a href="https://github.com/fek-design" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-transparent text-[var(--text-main)] font-mono-custom uppercase px-6 py-3 border-2 border-[var(--text-main)] action-button transition-all duration-300 text-xs tracking-wider font-bold whitespace-nowrap shrink-0">
+                            <i class="fa-brands fa-github text-lg"></i>
+                            Explore
+                        </a>
+                        <p class="font-mono-custom text-xs md:text-sm uppercase max-w-xs text-[var(--text-main)] opacity-80 pl-4 border-l-2 border-[var(--text-main)] m-0">
+                            Digital environments built with intent. A collection of recent interactive deployments.
+                        </p>
+                    </div>
+                </div>
+        
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
+                    
+                    <a href="https://deso.dk" class="project-card relative block col-span-1 md:col-span-8 bg-[var(--bg-color)] overflow-hidden motion-scale-img motion-clip border-2 border-[var(--text-main)] cursor-pointer focus:outline-none focus:ring-4 focus:ring-[var(--text-main)]">
+                        <div class="absolute inset-0 z-0">
+                            <img src="https://api.microlink.io?screenshot&url=https://deso.dk" class="w-full h-full object-cover filter grayscale contrast-110 sepia" alt="Atmos Project Base">
+                        </div>
+                        <div class="iris-layer absolute inset-0 z-10 hidden md:block" style="clip-path: circle(0% at 50% 50%);">
+                            <img src="https://dummyimage.com/600x400/000000/000000" class="w-full h-full object-cover" alt="Atmos Project Reveal">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
+                                <h3 class="text-[var(--hero-pure)] font-anton text-3xl md:text-4xl uppercase mb-2">DESO</h3>
+                                <p class="text-[var(--hero-pure)] font-mono-custom text-xs opacity-90">Another study case, working in a group as a simulated agency, where i was spearheading my team, to overhaul the customer's website and visual identity.<br><br>• Wordpress / Elementor</p>
+                            </div>
+                        </div>
+                        <div class="md:hidden absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 to-transparent">
+                            <h3 class="text-[var(--hero-pure)] font-anton text-2xl uppercase mb-1">DESO</h3>
+                            <p class="text-[var(--hero-pure)] font-mono-custom text-[10px] opacity-80">Wordpress / Elementor</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://sem3e.fekdesign.dk" class="project-card relative block col-span-1 md:col-span-4 bg-accent overflow-hidden motion-slide-up border-2 border-[var(--text-main)] cursor-pointer focus:outline-none focus:ring-4 focus:ring-[var(--text-main)]">
+                        <div class="absolute inset-0 z-0 flex flex-col items-start justify-between p-8 text-left">
+                            <p class="font-mono-custom text-xs md:text-sm uppercase font-bold text-[var(--text-main)]">Latest Project</p>
+                            <div>
+                                <p class="font-anton text-4xl md:text-5xl uppercase text-[var(--text-main)] leading-none mb-4">FREEZER-PAL</p>
+                                <div class="w-full h-[2px] bg-[var(--text-main)] mb-4"></div>
+                                <p class="font-mono-custom text-xs md:text-sm text-[var(--text-main)] opacity-80 leading-relaxed">Third semester exam project, visual identity and website showcasing the app.</p>
+                            </div>
+                        </div>
+                        <div class="iris-layer absolute inset-0 z-10 hidden md:flex flex-col items-start justify-between p-8 text-left bg-[var(--text-main)]" style="clip-path: circle(0% at 50% 50%);">
+                            <p class="font-mono-custom text-xs md:text-sm uppercase font-bold text-[var(--hero-pure)]">Latest Project</p>
+                            <div>
+                                <p class="font-anton text-4xl md:text-5xl uppercase text-[var(--hero-pure)] leading-none mb-4">FREEZER-PAL</p>
+                                <div class="w-full h-[2px] bg-[var(--hero-pure)] mb-4"></div>
+                                <p class="font-mono-custom text-xs md:text-sm text-[var(--hero-pure)] opacity-80 leading-relaxed">Third semester exam project, visual identity and website showcasing the app.</p>
+                            </div>
+                        </div>
+                    </a>
+        
+                    <a href="https://sotf.fekdesign.dk/" class="project-card relative block col-span-1 md:col-span-5 bg-[var(--bg-color)] overflow-hidden motion-scale-img motion-clip border-2 border-[var(--text-main)] cursor-pointer focus:outline-none focus:ring-4 focus:ring-[var(--text-main)]">
+                        <div class="absolute inset-0 z-0">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale contrast-110 sepia" alt="Video Game Base">
+                        </div>
+                        <div class="iris-layer absolute inset-0 z-10 hidden md:block" style="clip-path: circle(0% at 50% 50%);">
+                            <img src="https://dummyimage.com/600x400/000000/000000" class="w-full h-full object-cover transparent-50" alt="Video Game Reveal">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
+                                <h3 class="text-[var(--hero-pure)] font-anton text-3xl md:text-4xl uppercase mb-2">Video Game Website</h3>
+                                <p class="text-[var(--hero-pure)] font-mono-custom text-xs opacity-90">My first official website, this was during my first semester where i had to create a website free of my choosing.<br><br>• Plain HTML / CSS</p>
+                            </div>
+                        </div>
+                        <div class="md:hidden absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 to-transparent">
+                            <h3 class="text-[var(--hero-pure)] font-anton text-2xl uppercase mb-1">Video Game</h3>
+                            <p class="text-[var(--hero-pure)] font-mono-custom text-[10px] opacity-80">Plain HTML / CSS</p>
+                        </div>
+                    </a>
+        
+                    <a href="https://github.com/fek-design/web-logbook" class="project-card relative block col-span-1 md:col-span-7 bg-[var(--bg-color)] overflow-hidden motion-scale-img motion-clip border-2 border-[var(--text-main)] cursor-pointer focus:outline-none focus:ring-4 focus:ring-[var(--text-main)]">
+                        <div class="absolute inset-0 z-0">
+                            <img src="https://dummyimage.com/600x400/000000/000000" class="w-full h-full object-cover filter grayscale contrast-110 sepia" alt="Timelogger Base">
+                        </div>
+                        <div class="iris-layer absolute inset-0 z-10 hidden md:block" style="clip-path: circle(0% at 50% 50%);">
+                            <img src="https://dummyimage.com/600x400/000000/000000" class="w-full h-full object-cover" alt="Timelogger Reveal">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
+                                <h3 class="text-[var(--hero-pure)] font-anton text-3xl md:text-4xl uppercase mb-2">Timelogger</h3>
+                                <p class="text-[var(--hero-pure)] font-mono-custom text-xs opacity-90">Also during the simulated agency semester we had to log our hours, i made a webapp to do exactly that, with a dashboard and easy registration. <br><br>• React / Tailwind</p>
+                            </div>
+                        </div>
+                        <div class="md:hidden absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 to-transparent">
+                            <h3 class="text-[var(--hero-pure)] font-anton text-2xl uppercase mb-1">Timelogger</h3>
+                            <p class="text-[var(--hero-pure)] font-mono-custom text-[10px] opacity-80">React / Tailwind</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="logs" class="py-24 md:py-32 relative z-30 border-b-2 border-[var(--text-main)]">
+            <div class="absolute inset-0 native-glass -z-10 border-none"></div>
+
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="mb-24 motion-slide-up">
+                    <h2 class="section-title mb-0">The SYNTHESIS</h2>
+                    <p class="font-mono-custom text-xs md:text-sm uppercase mt-4 text-[var(--text-main)] opacity-80 max-w-sm">
+                        // Beyond The Terminal
+                    </p>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-center mb-24 md:mb-32">
+                    <div class="w-full md:w-5/12 h-[300px] md:h-[400px] relative z-10 overflow-hidden border-2 border-[var(--text-main)] motion-scale-img motion-clip">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover filter filter grayscale contrast-110 sepia contrast-[1.1] sepia-[.2] will-change-transform" alt="Technology">
+                    </div>
+                    <div class="w-11/12 md:w-6/12 relative z-20 bg-[var(--bg-transparent)] p-8 md:p-12 border-2 border-[var(--text-main)] backdrop-blur-md -mt-12 md:mt-0 md:-ml-16 motion-slide-up">
+                        <p class="font-mono-custom text-[var(--text-main)] mb-2 text-xs uppercase opacity-60">01 / Sandbox</p>
+                        <h3 class="text-2xl md:text-4xl font-anton uppercase mb-4 text-[var(--text-main)]">Technology</h3>
+                        <p class="font-mono-custom text-[var(--text-main)] text-xs md:text-sm leading-relaxed">
+                            I don't believe in using the same solution for everything, I test new technologies and frameworks building things with them.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row-reverse items-center justify-center mb-24 md:mb-32">
+                    <div class="w-full md:w-5/12 h-[300px] md:h-[400px] relative z-10 overflow-hidden border-2 border-[var(--text-main)] motion-scale-img motion-clip">
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[40%] contrast-[1.1] sepia-[.2] will-change-transform" alt="Photography">
+                    </div>
+                    <div class="w-11/12 md:w-6/12 relative z-20 bg-[var(--bg-transparent)] p-8 md:p-12 border-2 border-[var(--text-main)] backdrop-blur-md -mt-12 md:mt-0 md:-mr-16 motion-slide-up">
+                        <p class="font-mono-custom text-[var(--text-main)] mb-2 text-xs uppercase opacity-60">02 / Lens</p>
+                        <h3 class="text-2xl md:text-4xl font-anton uppercase mb-4 text-[var(--text-main)]">Photography</h3>
+                        <p class="font-mono-custom text-[var(--text-main)] text-xs md:text-sm leading-relaxed">
+                            Documenting the overlooked. From the rigid geometry of architectural spaces to the fluid reality of street photography, capturing both calculated compositions and the quiet, authentic memories of everyday life.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-center">
+                    <div class="w-full md:w-5/12 h-[300px] md:h-[400px] relative z-10 overflow-hidden border-2 border-[var(--text-main)] motion-scale-img motion-clip">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[40%] contrast-[1.1] sepia-[.2] will-change-transform" alt="The Gym">
+                    </div>
+                    <div class="w-11/12 md:w-6/12 relative z-20 bg-[var(--bg-transparent)] p-8 md:p-12 border-2 border-[var(--text-main)] backdrop-blur-md -mt-12 md:mt-0 md:-ml-16 motion-slide-up">
+                        <p class="font-mono-custom text-[var(--text-main)] mb-2 text-xs uppercase opacity-60">03 / Iron</p>
+                        <h3 class="text-2xl md:text-4xl font-anton uppercase mb-4 text-[var(--text-main)]">The Gym</h3>
+                        <p class="font-mono-custom text-[var(--text-main)] text-xs md:text-sm leading-relaxed">
+                            I believe in discipline over motivation. Pushing physical thresholds burns away cognitive noise, generating the mental clarity required to execute complex design work and solve structural problems without waiting for inspiration.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="py-32 md:py-40 relative z-30 bg-[var(--bg-color)] overflow-hidden">
+            <div class="absolute inset-0 w-full h-full opacity-5 pointer-events-none motion-scale-img">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2500&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale" alt="Abstract Lines">
+            </div>
+
+            <div class="container mx-auto px-6 md:px-12 text-center relative z-10">
+                <div class="max-w-2xl mx-auto motion-slide-up">
+                    <h2 class="font-anton text-[var(--text-main)] uppercase leading-none tracking-tighter mb-6" style="font-size: clamp(3rem, 10vw, 7rem);">SAY HELLO</h2>
+                    <p class="font-mono-custom text-sm md:text-base text-[var(--text-main)] opacity-80 mb-12">
+                        Currently open for new collaborations. Let's build something beautiful together.
+                    </p>
+                    <a href="mailto:fkoesgaard@gmail.com" class="inline-block bg-[var(--text-main)] text-[var(--hero-pure)] font-mono-custom uppercase px-10 py-5 border-2 border-[var(--text-main)] action-button transition-all duration-300 text-sm tracking-wider">
+                        Send a Message
+                    </a>
+                </div>
+            </div>
+        </section>
+        <footer class="py-12 border-t-2 border-[var(--text-main)] bg-[var(--bg-color)]">
+            <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="font-mono-custom text-xs uppercase opacity-60">© 2026 FEKDESIGN. All rights reserved.</p>
+                <div class="flex gap-8 font-mono-custom text-xs uppercase font-bold">
+                    <a href="https://www.facebook.com/FelixKoesgaard/" class="nav-link">Facebook</a>
+                    <a href="https://github.com/fek-design" class="nav-link">GitHub</a>
+                    <a href="https://www.linkedin.com/in/felix-koesgaard/" class="nav-link">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+    
+    <script>
+        // 1. Lenis Initialization
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            direction: 'vertical', 
+            smooth: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        lenis.stop();
+
+        // 2. Motion.js API Setup
+        const { animate, inView, stagger, spring } = Motion;
+
+        function splitDualText(id, className) {
+            const el = document.getElementById(id);
+            if(!el) return;
+            const text = el.innerText;
+            el.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.innerText = char;
+                span.className = className;
+                span.style.display = 'inline-block';
+                el.appendChild(span);
+            });
+        }
+
+        splitDualText('hero-title-back', 'motion-stagger-back');
+        splitDualText('hero-title-front', 'motion-stagger-front');
+
+        // 3. ASYNC CHOREOGRAPHY ENFORCEMENT
+        async function executeLaunchSequence() {
+            await animate("#boot-progress", 
+                { width: "100%" }, 
+                { duration: 1.5, ease: "linear" }
+            ).finished;
+
+            document.getElementById('boot-log').innerText = "Canvas ready.";
+            await new Promise(r => setTimeout(r, 200)); 
+
+            animate("#boot-sequence", 
+                { y: "-100%" }, 
+                { duration: 0.85, ease: [0.8, 0, 0.2, 1] } 
+            );
+
+            lenis.start();
+
+            animate(".motion-nav", 
+                { y: [-20, 0], opacity: [0, 1] },
+                { delay: stagger(0.1), duration: 0.6, ease: "easeOut" }
+            );
+
+            await animate("#hero-model", 
+                { clipPath: ["inset(100% 0 0 0)", "inset(0% 0 0 0)"] }, 
+                { duration: 1.4, ease: [0.7, 0, 0.2, 1], delay: 0.2 } 
+            ).finished;
+
+            await new Promise(r => setTimeout(r, 800)); 
+
+            animate(".motion-stagger-back", 
+                { y: ["100%", "0%"], opacity: [0, 1] },
+                { delay: stagger(0.08), type: "spring", stiffness: 150, damping: 15 }
+            );
+
+            animate(".motion-stagger-front", 
+                { y: ["100%", "0%"], opacity: [0, 1] },
+                { delay: stagger(0.08), type: "spring", stiffness: 150, damping: 15 }
+            );
+
+            animate(".hero-text-load", 
+                { y: [40, 0], opacity: [0, 1] },
+                { delay: stagger(0.1), duration: 0.8, ease: "easeOut" }
+            );
+        }
+
+        executeLaunchSequence();
+
+        // 4. Scroll Intersection Observers
+        document.querySelectorAll(".motion-slide-up").forEach((element) => {
+            inView(element, () => {
+                animate(element, 
+                    { opacity: [0, 1], y: [40, 0] },
+                    { type: "spring", stiffness: 80, damping: 20 }
+                );
+                return () => {
+                    animate(element, { opacity: 0 }, { duration: 0.4, ease: "easeOut" });
+                };
+            }, { margin: "-10% 0px", amount: 0.1 }); 
+        });
+
+        document.querySelectorAll(".motion-scale-img").forEach((element) => {
+            element.style.clipPath = "inset(100% 0 0 0)";
+            
+            inView(element, () => {
+                animate(element, 
+                    { clipPath: ["inset(100% 0 0 0)", "inset(0% 0 0 0)"] },
+                    { duration: 1.2, ease: [0.8, 0, 0.2, 1] }
+                );
+                
+                const img = element.querySelector('img');
+                if(img) {
+                    animate(img, 
+                        { scale: [1.15, 1] },
+                        { duration: 1.8, ease: [0.2, 1, 0.3, 1] }
+                    );
+                }
+            }, { margin: "-10% 0px", amount: 0.2 });
+        });
+
+        inView("#skill-container", () => {
+            animate(".skill-pill", 
+                { opacity: [0, 1], y: [10, 0] },
+                { delay: stagger(0.08), type: "spring", stiffness: 200 }
+            );
+        }, { margin: "-10% 0px", amount: 0.4 }); 
+
+        // 5. Parallax & Native Glass Event Hook
+        const navbar = document.getElementById('navbar');
+        const textLayerBack = document.getElementById('parallax-text-back');
+        const textLayerFront = document.getElementById('parallax-text-front');
+        const modelLayer = document.getElementById('hero-model');
+        const bgImage = document.getElementById('bg-image');
+        const navLinks = navbar.querySelectorAll('.nav-link');
+
+        lenis.on('scroll', (e) => {
+            const scrollValue = e.animatedScroll;
+            
+            if (scrollValue > 50) {
+                navbar.classList.add('native-glass', 'py-4');
+                navbar.classList.remove('py-6');
+                navLinks.forEach(link => {
+                    link.classList.remove('text-[var(--hero-pure)]', 'drop-shadow-md');
+                    link.classList.add('text-[var(--text-main)]');
+                });
+            } else {
+                navbar.classList.remove('native-glass', 'py-4');
+                navbar.classList.add('py-6');
+                navLinks.forEach(link => {
+                    link.classList.remove('text-[var(--text-main)]');
+                    link.classList.add('text-[var(--hero-pure)]', 'drop-shadow-md');
+                });
+            }
+
+            if (scrollValue < window.innerHeight * 1.5) {
+                const textTransform = `translate3d(-50%, calc(-50% - ${scrollValue * 0.3}px), 0)`;
+                if(textLayerBack) textLayerBack.style.transform = textTransform;
+                if(textLayerFront) textLayerFront.style.transform = textTransform;
+                if(modelLayer) modelLayer.style.transform = `translate3d(0, ${scrollValue * 0.1}px, 0)`;
+            }
+
+            if (bgImage) {
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = maxScroll > 0 ? Math.min(scrollValue / maxScroll, 1) : 0;
+                bgImage.style.transform = `translate3d(0, ${progress * 15}vh, 0)`;
+            }
+        });
+
+        // 6. INTERACTIVE IRIS REVEAL (MOTION.JS)
+        const projectCards = document.querySelectorAll('.project-card');
+
+        projectCards.forEach(card => {
+            const irisLayer = card.querySelector('.iris-layer');
+            if (!irisLayer) return;
+
+            card.addEventListener('mouseenter', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                irisLayer.style.clipPath = `circle(0% at ${x}% ${y}%)`;
+
+                animate(irisLayer, 
+                    { clipPath: `circle(150% at ${x}% ${y}%)` }, 
+                    { duration: 0.6, ease: [0.22, 1, 0.36, 1] } 
+                );
+            });
+
+            card.addEventListener('mouseleave', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                animate(irisLayer, 
+                    { clipPath: `circle(0% at ${x}% ${y}%)` }, 
+                    { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+                );
+            });
+        });
+    </script>
+</body>
+</html>
