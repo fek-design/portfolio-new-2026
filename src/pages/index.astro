@@ -1,310 +1,470 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import MotionCard from '../components/MotionCard';
 import PillButton from '../components/PillButton.astro';
-import GlassCard from '../components/GlassCard.astro';
 import ChromeSparkle from '../components/ChromeSparkle.astro';
 import HudBadge from '../components/HudBadge.astro';
 ---
 
-<Layout title="fekdesign — Creative Developer & Experience Architect">
-  <main class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 space-y-32">
-    <!-- Navigation Bar -->
-    <header class="flex items-center justify-between py-4 border-b border-white/10">
-      <div class="flex items-center gap-3">
-        <ChromeSparkle size={20} />
-        <a href="/" class="text-xl font-bold tracking-tight text-white font-mono hover:text-[#3186FF] transition-colors">
-          FEKDESIGN
-        </a>
+<Layout title="FEKDESIGN — Felix Koesgaard | Creative Developer">
+  <!-- Boot Sequence Screen (No Glow) -->
+  <div
+    id="boot-sequence"
+    class="fixed inset-0 z-[10000] bg-[#1C1C1C] flex flex-col items-center justify-center pointer-events-auto"
+  >
+    <div class="overflow-hidden mb-6 text-center">
+      <h1 class="font-anton text-white tracking-tighter text-5xl sm:text-7xl lg:text-8xl leading-none">
+        WAKING UP
+      </h1>
+    </div>
+
+    <div class="w-64 sm:w-80 h-1 bg-white/10 relative overflow-hidden rounded-full">
+      <div id="boot-progress" class="absolute top-0 left-0 h-full bg-[#3186FF] w-0"></div>
+    </div>
+    <p id="boot-log" class="font-mono text-white/50 mt-4 text-xs uppercase tracking-widest">
+      Gathering pixels...
+    </p>
+  </div>
+
+  <!-- Main Fixed Navigation Bar -->
+  <header
+    id="navbar"
+    class="fixed top-0 w-full z-50 px-6 md:px-12 py-5 flex justify-between items-center bg-[#1C1C1C]/80 backdrop-blur-xl border-b border-white/10 transition-all duration-300"
+  >
+    <div class="flex items-center gap-3">
+      <ChromeSparkle size={20} />
+      <a href="#" class="text-2xl md:text-3xl font-anton uppercase tracking-tight text-white hover:text-[#3186FF] transition-colors">
+        FEKDESIGN
+      </a>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-8 text-xs uppercase font-mono tracking-wider text-white/70">
+      <a href="#about" class="hover:text-white transition-colors">01. About</a>
+      <a href="#projects" class="hover:text-white transition-colors">02. Work</a>
+      <a href="#logs" class="hover:text-white transition-colors">03. Journal</a>
+      <a href="#contact" class="hover:text-white transition-colors">04. Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <div class="hidden lg:block text-right font-mono text-[11px] text-white/50">
+        <p class="uppercase tracking-widest text-[9px] text-white/40">Based in</p>
+        <p class="text-white/80 font-medium">Copenhagen, DK</p>
       </div>
-      
-      <div class="hidden md:flex items-center gap-8 text-sm font-mono text-white/70">
-        <a href="#work" class="hover:text-white transition-colors">01. WORK</a>
-        <a href="#capabilities" class="hover:text-white transition-colors">02. SYSTEM</a>
-        <a href="#about" class="hover:text-white transition-colors">03. ARCHITECTURE</a>
+      <HudBadge text="ONLINE" statusDot={true} statusColor="#3186FF" />
+      <PillButton href="#contact" variant="primary" size="sm">
+        Connect
+      </PillButton>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+    <!-- Parallax Hero Composite -->
+    <section class="hero-container">
+      <div class="layer-text layer-back" id="parallax-text-back">
+        <span class="font-vision text-solid" id="hero-title-back">WELCOME</span>
       </div>
 
-      <div class="flex items-center gap-3">
-        <HudBadge text="ACTIVE" statusDot={true} statusColor="#3186FF" />
-        <PillButton href="#contact" variant="primary" size="sm">
-          Get in Touch
-        </PillButton>
-      </div>
-    </header>
+      <img
+        src="/hero-object.png"
+        alt="Main Visual Component"
+        class="hero-object-layer"
+        id="hero-model"
+        style="clip-path: inset(100% 0 0 0);"
+      />
 
-    <!-- Hero Section: Big Tech Whitespace + Avant-Garde Flare (No Glow) -->
-    <section class="text-center max-w-4xl mx-auto space-y-8 pt-8 md:pt-16">
-      <div class="flex items-center justify-center gap-2">
-        <HudBadge text="SYSTEM V2.4 // BIG TECH MINIMALISM" statusDot={true} statusColor="#3186FF" />
+      <div class="layer-text layer-front" id="parallax-text-front">
+        <span class="font-vision text-outline" id="hero-title-front">WELCOME</span>
       </div>
 
-      <div class="relative inline-block">
-        <div class="absolute -top-6 -right-6 hidden sm:block">
-          <ChromeSparkle size={32} />
+      <!-- Bottom Hero HUD Bar -->
+      <div class="absolute bottom-0 w-full z-40 px-6 md:px-12 pb-10 pt-24 bg-gradient-to-t from-[#1C1C1C] via-[#1C1C1C]/80 to-transparent pointer-events-none">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pointer-events-auto">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-[#3186FF] mb-2 block font-semibold">
+              // Creative Developer & Architect
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-anton uppercase tracking-tight text-white leading-none">
+              Felix Koesgaard
+            </h1>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <p class="font-mono text-xs text-white/70 max-w-xs leading-relaxed uppercase">
+              Crafting digital environments where technology meets aesthetics.
+            </p>
+            <div class="flex gap-3">
+              <PillButton href="#projects" variant="primary" size="md">
+                View Works
+              </PillButton>
+              <PillButton href="#about" variant="secondary" size="md">
+                Philosophy
+              </PillButton>
+            </div>
+          </div>
         </div>
-        <h1
-          id="hero-title"
-          class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] text-balance"
-        >
-          Vi udvikler <br />
-          <span class="gradient-text-electric">fremtidens digitale</span> <br />
-          oplevelser.
-        </h1>
-      </div>
-
-      <p
-        id="hero-desc"
-        class="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto font-normal leading-relaxed text-pretty"
-      >
-        A fast, capable creative engineering showcase fusing Google-grade minimalism and immense whitespace with avant-garde liquid glassmorphism.
-      </p>
-
-      <!-- Big Tech Pill Buttons -->
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-        <PillButton href="#work" variant="primary" size="lg" id="btn-explore">
-          <span>Explore Works</span>
-          <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </PillButton>
-        <PillButton href="#system" variant="secondary" size="lg">
-          System Overview
-        </PillButton>
       </div>
     </section>
 
-    <!-- Bento Architecture: Strict 12-Column Responsive Grid -->
-    <section id="work" class="space-y-8">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <ChromeSparkle size={18} />
-          <h2 class="text-xs uppercase tracking-widest font-mono text-white/60">
-            01 // FEATURED ARCHITECTURE & CASE STUDIES
-          </h2>
-        </div>
-        <span class="text-xs font-mono text-white/40">GRID: 8 / 12 / 16 COL</span>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-6">
-        <!-- Scaled Component 1: Quantum Drive (Cols 1-7 on desktop) -->
-        <GlassCard colSpan="lg:col-span-7 md:col-span-8" class="flex flex-col justify-between min-h-[384px]">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono text-white/50 uppercase tracking-wider">Case 01 // Interactive WebGL</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                PROD READY
-              </span>
+    <!-- Section 01: About (Form & Flow) -->
+    <section id="about" class="py-24 md:py-36 border-b border-white/10 bg-[#1C1C1C] relative">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div class="lg:col-span-5 space-y-4">
+            <div class="flex items-center gap-2">
+              <ChromeSparkle size={18} />
+              <span class="text-xs font-mono text-white/50 uppercase tracking-widest">01 // PHILOSOPHY</span>
             </div>
-            <h3 class="text-3xl font-bold text-white mb-2 tracking-tight">
-              Quantum Drive
-            </h3>
-            <p class="text-white/70 text-sm max-w-xl leading-relaxed">
-              Ultra-low latency product showcase built with Astro islands, hardware-accelerated motion choreography, and liquid translucent HUD controls.
+            <h2 class="section-title">
+              FORM &<br />
+              <span class="text-[#3186FF]">FLOW.</span>
+            </h2>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6 text-base sm:text-lg leading-relaxed text-white/80 font-mono text-pretty">
+            <p class="text-white font-medium text-lg sm:text-xl">
+              Code is just another medium. A well written function should translate into a beautifully felt interface.
+            </p>
+            <p class="text-white/60 text-sm sm:text-base leading-relaxed">
+              My background is in Multimediadesign, my focus is on the human experience. I build web environments that are mindful, tactile, and inherently creative. Less about forcing engagement, more about inviting exploration.
+            </p>
+
+            <div class="pt-6">
+              <span class="text-xs font-mono uppercase tracking-widest text-white/40 block mb-4">Core Capabilities</span>
+              <div class="flex flex-wrap gap-3" id="skill-container">
+                <span class="skill-pill">Frontend Architecture</span>
+                <span class="skill-pill">UX/UI Design</span>
+                <span class="skill-pill">Astro & React Islands</span>
+                <span class="skill-pill">GSAP Choreography</span>
+                <span class="skill-pill">Creative Coding</span>
+                <span class="skill-pill">TypeScript</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Blueprint Card -->
+        <div class="glass-panel p-3 rounded-3xl overflow-hidden relative group">
+          <div class="w-full h-[320px] sm:h-[420px] rounded-2xl overflow-hidden relative">
+            <img
+              src="/ferris-wheel-splash.JPG"
+              class="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700"
+              alt="Creative Architecture Blueprint"
+            />
+            <div class="absolute inset-0 bg-[#1C1C1C]/40 mix-blend-multiply"></div>
+            <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-xs font-mono text-white/80 bg-[#1C1C1C]/70 backdrop-blur-md px-4 py-3 rounded-xl border border-white/10">
+              <span>PHOTO ARCHIVE // RIGID GEOMETRY</span>
+              <span class="text-[#3186FF]">COPENHAGEN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 02: Selected Works (12-Col Responsive Bento Grid) -->
+    <section id="projects" class="py-24 md:py-36 border-b border-white/10 bg-[#1C1C1C]">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <ChromeSparkle size={18} />
+              <span class="text-xs font-mono text-white/50 uppercase tracking-widest">02 // SELECTED WORKS</span>
+            </div>
+            <h2 class="section-title mb-0">
+              SELECTED<br />WORKS
+            </h2>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <PillButton href="https://github.com/fek-design" variant="secondary" size="md">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              GitHub Profile
+            </PillButton>
+            <p class="font-mono text-xs uppercase text-white/60 max-w-xs pl-4 border-l border-white/20">
+              Digital environments built with intent. A collection of recent interactive deployments.
             </p>
           </div>
-
-          <div class="pt-8 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/80 font-mono">
-                Astro v7
-              </span>
-              <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/80 font-mono">
-                Three.js
-              </span>
-              <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/80 font-mono">
-                GSAP
-              </span>
-            </div>
-            <PillButton href="#" variant="secondary" size="sm">
-              Launch Case →
-            </PillButton>
-          </div>
-        </GlassCard>
-
-        <!-- Stacked Component: High-Impact Performance Metrics (Cols 8-12 on desktop) -->
-        <GlassCard colSpan="lg:col-span-5 md:col-span-8" class="flex flex-col justify-between min-h-[384px]">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="text-xs font-mono text-white/50 uppercase tracking-wider">Metrics // System Health</span>
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
-                <p class="text-3xl font-bold font-mono text-white">99.8%</p>
-                <p class="text-xs font-mono text-white/50 mt-1 uppercase">LCP Optimization</p>
-              </div>
-              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
-                <p class="text-3xl font-bold font-mono text-white">60 FPS</p>
-                <p class="text-xs font-mono text-white/50 mt-1 uppercase">Native Motion</p>
-              </div>
-              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
-                <p class="text-3xl font-bold font-mono text-white">0.0 ms</p>
-                <p class="text-xs font-mono text-white/50 mt-1 uppercase">Cumulative Shift</p>
-              </div>
-              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
-                <p class="text-3xl font-bold font-mono text-white">8 pt</p>
-                <p class="text-xs font-mono text-white/50 mt-1 uppercase">Grid Spatial Unit</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-white/60">
-            <span>AUDITED BY OPEN-SPEC</span>
-            <span class="text-[#3186FF]">ALL SYSTEMS GO</span>
-          </div>
-        </GlassCard>
-
-        <!-- React Island: MotionCard (Cols 1-6 on desktop) -->
-        <div class="lg:col-span-6 md:col-span-8">
-          <MotionCard
-            client:load
-            title="Framer Motion Reactive Island"
-            subtitle="Zero-overhead client-side interactive spring physics mounted selectively as an Astro island."
-            tech={["framer-motion", "react-19", "island-architecture"]}
-          />
         </div>
 
-        <!-- GSAP Timeline Choreography Card (Cols 7-12 on desktop) -->
-        <GlassCard colSpan="lg:col-span-6 md:col-span-8" id="gsap-interactive-card" class="cursor-pointer">
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs uppercase tracking-widest font-mono text-white/60 font-medium">
-              GSAP Choreography Engine
-            </span>
-            <span id="gsap-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-[#3186FF]"></span>
-          </div>
+        <!-- 12-Column Asymmetric Bento Grid (Strict 8pt Rhythm: 384px height) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Card 1: DESO (7 cols) -->
+          <a
+            href="https://deso.dk"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="project-card col-span-1 lg:col-span-7 h-[384px] group"
+          >
+            <div class="absolute inset-0 z-0">
+              <img
+                src="/deso.webp"
+                alt="DESO Project Preview"
+                class="w-full h-full object-cover filter grayscale contrast-125 brightness-75 group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            
+            <!-- Iris Reveal Layer -->
+            <div class="iris-layer z-10 bg-[#1C1C1C]/95 p-8 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-[#3186FF] uppercase font-bold tracking-widest">Case 01 // Agency Lead</span>
+                <span class="text-xs font-mono text-white/50">WordPress / Elementor</span>
+              </div>
+              <div>
+                <h3 class="font-anton text-4xl sm:text-5xl text-white uppercase mb-3">DESO</h3>
+                <p class="font-mono text-xs sm:text-sm text-white/70 max-w-lg leading-relaxed">
+                  Working in a simulated agency where I spearheaded the team to overhaul the client's website architecture and visual identity.
+                </p>
+              </div>
+              <div class="flex items-center justify-between text-xs font-mono text-white/50 pt-4 border-t border-white/10">
+                <span>VIEW LIVE DEPLOYMENT</span>
+                <span class="text-[#3186FF]">↗</span>
+              </div>
+            </div>
 
-          <h3 class="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-200 transition-colors">
-            Complex Timeline Sequencing
-          </h3>
-          <p class="text-white/70 text-sm leading-relaxed mb-6">
-            Multi-stage micro-animations orchestrating hero typography, glass refraction borders, and fluid spatial transitions.
-          </p>
+            <!-- Mobile Default Text Overlay -->
+            <div class="lg:hidden absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/90 to-transparent">
+              <h3 class="font-anton text-3xl text-white uppercase">DESO</h3>
+              <p class="font-mono text-xs text-white/70">WordPress / Visual Identity</p>
+            </div>
+          </a>
 
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/90 font-mono">
-              gsap-3
-            </span>
-            <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/90 font-mono">
-              timeline-choreography
-            </span>
-            <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/90 font-mono">
-              fluid-springs
-            </span>
-          </div>
-        </GlassCard>
+          <!-- Card 2: FREEZER-PAL (5 cols) -->
+          <a
+            href="https://sem3e.fekdesign.dk"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="project-card col-span-1 lg:col-span-5 h-[384px] p-8 flex flex-col justify-between group bg-white/[0.03]"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-white/50 uppercase tracking-widest">Latest Exam</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-[#3186FF]/20 text-[#3186FF] border border-[#3186FF]/30">
+                TOP GRADE
+              </span>
+            </div>
+
+            <div>
+              <h3 class="font-anton text-4xl sm:text-5xl text-white uppercase mb-3 group-hover:text-[#3186FF] transition-colors">
+                FREEZER-PAL
+              </h3>
+              <div class="w-16 h-[2px] bg-[#3186FF] mb-4"></div>
+              <p class="font-mono text-xs sm:text-sm text-white/70 leading-relaxed">
+                Third semester exam project: end-to-end visual identity and responsive web application showcase.
+              </p>
+            </div>
+
+            <div class="flex items-center justify-between text-xs font-mono text-white/50 pt-4 border-t border-white/10">
+              <span>EXPLORE DEPLOYMENT</span>
+              <span class="text-[#3186FF]">↗</span>
+            </div>
+          </a>
+
+          <!-- Card 3: Video Game Website (5 cols) -->
+          <a
+            href="https://sotf.fekdesign.dk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="project-card col-span-1 lg:col-span-5 h-[384px] group"
+          >
+            <div class="absolute inset-0 z-0">
+              <img
+                src="/sotf.webp"
+                alt="Video Game Project"
+                class="w-full h-full object-cover filter grayscale contrast-125 brightness-75 group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+
+            <!-- Iris Reveal Layer -->
+            <div class="iris-layer z-10 bg-[#1C1C1C]/95 p-8 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-[#3186FF] uppercase font-bold tracking-widest">Case 03 // Interactive</span>
+                <span class="text-xs font-mono text-white/50">HTML / CSS</span>
+              </div>
+              <div>
+                <h3 class="font-anton text-4xl text-white uppercase mb-2">Video Game</h3>
+                <p class="font-mono text-xs text-white/70 leading-relaxed">
+                  First semester independent project creating a custom interactive gaming web portal with custom CSS styling.
+                </p>
+              </div>
+              <div class="flex items-center justify-between text-xs font-mono text-white/50 pt-4 border-t border-white/10">
+                <span>VIEW PROJECT</span>
+                <span class="text-[#3186FF]">↗</span>
+              </div>
+            </div>
+
+            <div class="lg:hidden absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/90 to-transparent">
+              <h3 class="font-anton text-3xl text-white uppercase">Video Game</h3>
+              <p class="font-mono text-xs text-white/70">Custom Web Experience</p>
+            </div>
+          </a>
+
+          <!-- Card 4: Timelogger (7 cols) -->
+          <a
+            href="https://github.com/fek-design/web-logbook"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="project-card col-span-1 lg:col-span-7 h-[384px] p-8 flex flex-col justify-between group bg-white/[0.03]"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-white/50 uppercase tracking-widest">Internal Tooling</span>
+              <span class="text-xs font-mono text-white/40">React / Tailwind</span>
+            </div>
+
+            <div>
+              <h3 class="font-anton text-4xl sm:text-5xl text-white uppercase mb-3 group-hover:text-[#3186FF] transition-colors">
+                TIMELOGGER
+              </h3>
+              <p class="font-mono text-xs sm:text-sm text-white/70 max-w-lg leading-relaxed">
+                Agency productivity web app designed to log and manage team hours with a dedicated analytics dashboard and registration flow.
+              </p>
+            </div>
+
+            <div class="flex items-center justify-between text-xs font-mono text-white/50 pt-4 border-t border-white/10">
+              <span>VIEW REPOSITORY</span>
+              <span class="text-[#3186FF]">↗</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Design System Foundation: 8 / 12 / 16 Grid & Token Map -->
-    <section id="system" class="space-y-8">
-      <div class="flex items-center gap-3">
-        <ChromeSparkle size={18} />
-        <h2 class="text-xs uppercase tracking-widest font-mono text-white/60">
-          02 // DESIGN SYSTEM SPECIFICATION TOKENS
+    <!-- Section 03: The Synthesis (Journal) -->
+    <section id="logs" class="py-24 md:py-36 border-b border-white/10 bg-[#1C1C1C]">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-24">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <ChromeSparkle size={18} />
+            <span class="text-xs font-mono text-white/50 uppercase tracking-widest">03 // JOURNAL & PRINCIPLES</span>
+          </div>
+          <h2 class="section-title mb-0">THE SYNTHESIS</h2>
+          <p class="font-mono text-xs sm:text-sm uppercase text-white/60">
+            // Beyond The Terminal
+          </p>
+        </div>
+
+        <!-- 01: Technology -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-5 h-[320px] rounded-3xl overflow-hidden glass-panel p-2">
+            <img
+              src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop"
+              class="w-full h-full object-cover rounded-2xl filter grayscale contrast-125"
+              alt="Technology Sandbox"
+            />
+          </div>
+          <div class="lg:col-span-7 glass-panel p-8 sm:p-12 rounded-3xl space-y-4">
+            <span class="font-mono text-xs text-[#3186FF] uppercase font-bold tracking-widest">01 / Sandbox</span>
+            <h3 class="font-anton text-3xl sm:text-4xl text-white uppercase">Technology</h3>
+            <p class="font-mono text-xs sm:text-sm leading-relaxed text-white/70">
+              I don't believe in using the same solution for everything. I test new technologies and frameworks by building real systems with them, pushing boundaries rather than adhering to rigid formulas.
+            </p>
+          </div>
+        </div>
+
+        <!-- 02: Photography -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 lg:order-1 order-2 glass-panel p-8 sm:p-12 rounded-3xl space-y-4">
+            <span class="font-mono text-xs text-[#3186FF] uppercase font-bold tracking-widest">02 / Lens</span>
+            <h3 class="font-anton text-3xl sm:text-4xl text-white uppercase">Photography</h3>
+            <p class="font-mono text-xs sm:text-sm leading-relaxed text-white/70">
+              Documenting the overlooked. From the rigid geometry of architectural spaces to the fluid reality of street photography, capturing both calculated compositions and the quiet, authentic memories of everyday life.
+            </p>
+          </div>
+          <div class="lg:col-span-5 lg:order-2 order-1 h-[320px] rounded-3xl overflow-hidden glass-panel p-2">
+            <img
+              src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop"
+              class="w-full h-full object-cover rounded-2xl filter grayscale contrast-125"
+              alt="Photography Lens"
+            />
+          </div>
+        </div>
+
+        <!-- 03: The Gym -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-5 h-[320px] rounded-3xl overflow-hidden glass-panel p-2">
+            <img
+              src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop"
+              class="w-full h-full object-cover rounded-2xl filter grayscale contrast-125"
+              alt="The Gym"
+            />
+          </div>
+          <div class="lg:col-span-7 glass-panel p-8 sm:p-12 rounded-3xl space-y-4">
+            <span class="font-mono text-xs text-[#3186FF] uppercase font-bold tracking-widest">03 / Iron</span>
+            <h3 class="font-anton text-3xl sm:text-4xl text-white uppercase">The Gym</h3>
+            <p class="font-mono text-xs sm:text-sm leading-relaxed text-white/70">
+              I believe in discipline over motivation. Pushing physical thresholds burns away cognitive noise, generating the mental clarity required to execute complex design work and solve structural problems without waiting for inspiration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 04: Contact (Say Hello) -->
+    <section id="contact" class="py-28 md:py-40 bg-[#1C1C1C]">
+      <div class="max-w-4xl mx-auto px-6 md:px-12 text-center space-y-8">
+        <div class="flex items-center justify-center gap-2">
+          <HudBadge text="STATUS: ACCEPTING COMMISSIONS" statusDot={true} statusColor="#3186FF" />
+        </div>
+
+        <h2 class="font-anton text-white uppercase leading-none tracking-tight text-5xl sm:text-7xl lg:text-8xl">
+          SAY HELLO
         </h2>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-panel p-6 rounded-3xl space-y-4">
-          <div class="w-10 h-10 rounded-2xl bg-[#FFFFFF] flex items-center justify-center text-stone-900 font-mono font-bold text-xs shadow-md">
-            W
-          </div>
-          <div>
-            <h4 class="text-base font-bold text-white">Pure Canvas White</h4>
-            <p class="text-xs font-mono text-white/50">#FFFFFF // sRGB & P3</p>
-          </div>
-          <p class="text-xs text-white/70 leading-relaxed">
-            Reserved for high-contrast headlines, primary button text, and specular light rim highlights.
-          </p>
-        </div>
+        <p class="font-mono text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
+          Currently open for new collaborations, creative development, and experience architecture. Let's build something exceptional together.
+        </p>
 
-        <div class="glass-panel p-6 rounded-3xl space-y-4">
-          <div class="w-10 h-10 rounded-2xl bg-[#1C1C1C] border border-white/20 flex items-center justify-center text-white font-mono font-bold text-xs shadow-md">
-            D
-          </div>
-          <div>
-            <h4 class="text-base font-bold text-white">Obsidian Deep Dark</h4>
-            <p class="text-xs font-mono text-white/50">#1C1C1C // Neutral Dark Base</p>
-          </div>
-          <p class="text-xs text-white/70 leading-relaxed">
-            Dominant backdrop providing high contrast for liquid glassmorphism, eliminating eye strain.
-          </p>
-        </div>
-
-        <div class="glass-panel p-6 rounded-3xl space-y-4">
-          <div class="w-10 h-10 rounded-2xl gradient-electric-bg flex items-center justify-center text-white font-mono font-bold text-xs">
-            ⚡
-          </div>
-          <div>
-            <h4 class="text-base font-bold text-white">Pure Blue Gradient</h4>
-            <p class="text-xs font-mono text-white/50">#3186FF // Monochromatic Blue</p>
-          </div>
-          <p class="text-xs text-white/70 leading-relaxed">
-            Signature anchor for Big Tech pill buttons, focus rings, and avant-garde spark accents without color mixing or glow.
-          </p>
+        <div class="pt-4 flex flex-wrap justify-center gap-4">
+          <PillButton href="mailto:fkoesgaard@gmail.com" variant="primary" size="lg">
+            Send an Email →
+          </PillButton>
+          <PillButton href="https://github.com/fek-design" variant="secondary" size="lg">
+            GitHub
+          </PillButton>
         </div>
       </div>
     </section>
 
-    <!-- Contact & Action Footer (No Glow) -->
-    <section id="contact" class="glass-panel p-10 md:p-16 rounded-3xl text-center space-y-6 relative overflow-hidden">
-      <HudBadge text="READY FOR COLLABORATION" statusDot={true} statusColor="#3186FF" />
-      <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white max-w-xl mx-auto">
-        Let’s build something extraordinary.
-      </h2>
-      <p class="text-white/70 text-sm md:text-base max-w-md mx-auto leading-relaxed">
-        Have a project in mind or exploring future-facing creative development? Let's connect.
-      </p>
-      <div class="pt-4 flex flex-wrap justify-center gap-4">
-        <PillButton href="mailto:hello@fekdesign.studio" variant="primary" size="lg">
-          Get in Touch →
-        </PillButton>
-        <PillButton href="/portfolio.html" variant="secondary" size="lg">
-          View Static Archive
-        </PillButton>
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/10 bg-[#1C1C1C] text-xs font-mono text-white/50">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row justify-between items-center gap-6">
+        <p>© 2026 FEKDESIGN. All rights reserved.</p>
+        <div class="flex gap-8 font-semibold">
+          <a href="https://github.com/fek-design" class="hover:text-white transition-colors">GitHub</a>
+          <a href="https://www.linkedin.com/in/felix-koesgaard/" class="hover:text-white transition-colors">LinkedIn</a>
+          <a href="https://www.facebook.com/FelixKoesgaard/" class="hover:text-white transition-colors">Facebook</a>
+        </div>
       </div>
-    </section>
-
-    <footer class="pt-12 pb-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-white/40 gap-4">
-      <p>© 2026 fekdesign. All rights reserved.</p>
-      <p>Astro + Tailwind v4 + Motion + GSAP + OpenSpec</p>
     </footer>
   </main>
 
-  <!-- Client-side GSAP and Vanilla Motion Interactivity (Clean, No Glow) -->
+  <!-- Client-side Motion Choreography (No Glow) -->
   <script>
-    import gsap from 'gsap';
     import { animate } from 'motion';
 
-    // Hero Entry Animation
-    gsap.from('#hero-title', {
-      y: 32,
-      opacity: 0,
-      duration: 1.1,
-      ease: 'power3.out',
-    });
+    // Boot Launch Sequence
+    async function initSequence() {
+      const progressBar = document.getElementById('boot-progress');
+      const bootLog = document.getElementById('boot-log');
+      const bootSequence = document.getElementById('boot-sequence');
+      const heroModel = document.getElementById('hero-model');
 
-    gsap.from('#hero-desc', {
-      y: 24,
-      opacity: 0,
-      duration: 0.9,
-      delay: 0.2,
-      ease: 'power3.out',
-    });
+      if (progressBar && bootSequence) {
+        await animate(progressBar, { width: '100%' }, { duration: 1.2, ease: 'easeInOut' }).finished;
+        if (bootLog) bootLog.innerText = 'Canvas ready.';
 
-    // GSAP Interactive Card Hover
-    const gsapCard = document.getElementById('gsap-interactive-card');
-    const gsapDot = document.getElementById('gsap-dot');
-    if (gsapCard && gsapDot) {
-      gsapCard.addEventListener('mouseenter', () => {
-        animate(gsapCard, { y: -4, scale: 1.01 }, { duration: 0.25 });
-        gsap.to(gsapDot, { scale: 1.4, duration: 0.2 });
-      });
-      gsapCard.addEventListener('mouseleave', () => {
-        animate(gsapCard, { y: 0, scale: 1 }, { duration: 0.25 });
-        gsap.to(gsapDot, { scale: 1, duration: 0.2 });
-      });
+        await new Promise((r) => setTimeout(r, 150));
+        await animate(bootSequence, { opacity: 0, y: -40 }, { duration: 0.6, ease: [0.8, 0, 0.2, 1] }).finished;
+        bootSequence.style.display = 'none';
+
+        if (heroModel) {
+          animate(heroModel, { clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'] }, { duration: 1.2, ease: [0.16, 1, 0.3, 1] });
+        }
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSequence);
+    } else {
+      initSequence();
     }
   </script>
 </Layout>
