@@ -1,0 +1,25 @@
+---
+interface Props {
+  text: string;
+  statusDot?: boolean;
+  statusColor?: string;
+  class?: string;
+}
+
+const {
+  text,
+  statusDot = false,
+  statusColor = '#3186FF',
+  class: className = '',
+} = Astro.props;
+---
+
+<div class={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md text-[11px] font-mono uppercase tracking-wider text-white/80 shadow-sm ${className}`}>
+  {statusDot && (
+    <span
+      class="w-2 h-2 rounded-full animate-pulse"
+      style={`background-color: ${statusColor}; box-shadow: 0 0 8px ${statusColor};`}
+    ></span>
+  )}
+  <span>{text}</span>
+</div>

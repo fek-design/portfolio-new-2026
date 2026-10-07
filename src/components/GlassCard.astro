@@ -1,0 +1,27 @@
+---
+interface Props {
+  class?: string;
+  id?: string;
+  colSpan?: string;
+  glow?: boolean;
+}
+
+const {
+  class: className = '',
+  id,
+  colSpan = '',
+  glow = false,
+} = Astro.props;
+---
+
+<div
+  id={id}
+  class={`glass-panel rounded-3xl p-8 relative overflow-hidden group ${colSpan} ${glow ? 'hover:shadow-[0_24px_64px_-12px_rgba(49,134,255,0.25)]' : ''} ${className}`}
+>
+  <!-- Subtle specular light refraction at top border -->
+  <div
+    class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"
+    aria-hidden="true"
+  ></div>
+  <slot />
+</div>

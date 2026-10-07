@@ -1,0 +1,36 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'gradient';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  id?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  id,
+} = Astro.props;
+
+const sizeStyles = {
+  sm: 'h-8 px-4 text-xs gap-1.5',
+  md: 'h-12 px-6 text-sm gap-2',
+  lg: 'h-14 px-8 text-base gap-2.5',
+};
+
+const variantStyles = {
+  primary: 'btn-pill-primary',
+  secondary: 'btn-pill-secondary',
+  gradient: 'gradient-electric-bg text-white shadow-[0_4px_24px_rgba(49,134,255,0.4)] hover:shadow-[0_6px_32px_rgba(49,134,255,0.6)] hover:scale-[1.02]',
+};
+
+const classes = `btn-pill-base ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag href={href} class={classes} id={id}>
+  <slot />
+</Tag>

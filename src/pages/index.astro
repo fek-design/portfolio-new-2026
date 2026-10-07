@@ -1,108 +1,311 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MotionCard from '../components/MotionCard';
+import PillButton from '../components/PillButton.astro';
+import GlassCard from '../components/GlassCard.astro';
+import ChromeSparkle from '../components/ChromeSparkle.astro';
+import HudBadge from '../components/HudBadge.astro';
 ---
 
-<Layout title="Portfolio | Astro + Tailwind + Framer Motion + GSAP">
-  <main class="max-w-6xl mx-auto px-6 py-16 space-y-16">
-    <!-- Header Hero -->
-    <header class="space-y-4">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-stone-800/15 bg-white/40 text-xs font-mono uppercase tracking-wider">
-        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-        Astro v7 + Tailwind v4 + Motion + GSAP + OpenSpec
+<Layout title="fekdesign — Creative Developer & Experience Architect">
+  <main class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 space-y-32">
+    <!-- Navigation Bar -->
+    <header class="flex items-center justify-between py-4 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <ChromeSparkle size={20} />
+        <a href="/" class="text-xl font-bold tracking-tight text-white font-mono hover:text-[#3186FF] transition-colors">
+          FEKDESIGN
+        </a>
       </div>
-      <h1 id="hero-title" class="text-5xl sm:text-7xl font-black tracking-tight text-stone-900 uppercase font-['Anton',sans-serif]">
-        Creative Developer
-      </h1>
-      <p id="hero-desc" class="text-lg text-stone-700 max-w-2xl leading-relaxed">
-        Modern creative development environment configured with Astro, Tailwind CSS, Motion/Framer Motion, GSAP animation orchestration, and OpenSpec spec-driven workflows.
-      </p>
+      
+      <div class="hidden md:flex items-center gap-8 text-sm font-mono text-white/70">
+        <a href="#work" class="hover:text-white transition-colors">01. WORK</a>
+        <a href="#capabilities" class="hover:text-white transition-colors">02. SYSTEM</a>
+        <a href="#about" class="hover:text-white transition-colors">03. ARCHITECTURE</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <HudBadge text="ACTIVE" statusDot={true} statusColor="#3186FF" />
+        <PillButton href="#contact" variant="primary" size="sm">
+          Get in Touch
+        </PillButton>
+      </div>
     </header>
 
-    <!-- Cards Section -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Framer Motion Card (React Island) -->
-      <MotionCard
-        client:load
-        title="Framer Motion + React Island"
-        subtitle="Zero-overhead client-side animation powered by Astro Island architecture and Framer Motion."
-        tech={["framer-motion", "react", "astro-islands"]}
-      />
+    <!-- Hero Section: Big Tech Whitespace + Avant-Garde Flare -->
+    <section class="text-center max-w-4xl mx-auto space-y-8 pt-8 md:pt-16">
+      <div class="flex items-center justify-center gap-2">
+        <HudBadge text="SYSTEM V2.4 // BIG TECH MINIMALISM" statusDot={true} statusColor="#3186FF" />
+      </div>
 
-      <!-- GSAP Animated Card -->
-      <div
-        id="gsap-card"
-        class="p-6 rounded-2xl bg-amber-50/80 border border-stone-800/10 shadow-sm backdrop-blur-md transition-shadow hover:shadow-xl"
+      <div class="relative inline-block">
+        <div class="absolute -top-6 -right-6 hidden sm:block">
+          <ChromeSparkle size={32} />
+        </div>
+        <h1
+          id="hero-title"
+          class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] text-balance"
+        >
+          Vi udvikler <br />
+          <span class="gradient-text-electric">fremtidens digitale</span> <br />
+          oplevelser.
+        </h1>
+      </div>
+
+      <p
+        id="hero-desc"
+        class="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto font-normal leading-relaxed text-pretty"
       >
-        <div class="flex items-center justify-between mb-3">
-          <span class="text-xs uppercase tracking-widest font-mono text-stone-600 font-semibold">
-            GSAP & Vanilla Motion
-          </span>
-          <span id="gsap-badge" class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+        A fast, capable creative engineering showcase fusing Google-grade minimalism and immense whitespace with avant-garde liquid glassmorphism.
+      </p>
+
+      <!-- Big Tech Pill Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <PillButton href="#work" variant="primary" size="lg" id="btn-explore">
+          <span>Explore Works</span>
+          <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </PillButton>
+        <PillButton href="#system" variant="secondary" size="lg">
+          System Overview
+        </PillButton>
+      </div>
+    </section>
+
+    <!-- Bento Architecture: Strict 12-Column Responsive Grid -->
+    <section id="work" class="space-y-8">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <ChromeSparkle size={18} />
+          <h2 class="text-xs uppercase tracking-widest font-mono text-white/60">
+            01 // FEATURED ARCHITECTURE & CASE STUDIES
+          </h2>
         </div>
-        <h3 class="text-2xl font-bold text-stone-900 mb-1">GSAP Timeline Engine</h3>
-        <p class="text-stone-600 text-sm mb-4">
-          Robust timeline choreography and scroll interactions configured via GSAP 3.
-        </p>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-2.5 py-1 text-xs rounded-md bg-stone-900 text-amber-100 font-mono">gsap</span>
-          <span class="px-2.5 py-1 text-xs rounded-md bg-stone-900 text-amber-100 font-mono">motion</span>
-          <span class="px-2.5 py-1 text-xs rounded-md bg-stone-900 text-amber-100 font-mono">timeline</span>
+        <span class="text-xs font-mono text-white/40">GRID: 8 / 12 / 16 COL</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-6">
+        <!-- Scaled Component 1: Quantum Drive (Cols 1-7 on desktop) -->
+        <GlassCard colSpan="lg:col-span-7 md:col-span-8" glow={true} class="flex flex-col justify-between min-h-[384px]">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-white/50 uppercase tracking-wider">Case 01 // Interactive WebGL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                PROD READY
+              </span>
+            </div>
+            <h3 class="text-3xl font-bold text-white mb-2 tracking-tight">
+              Quantum Drive
+            </h3>
+            <p class="text-white/70 text-sm max-w-xl leading-relaxed">
+              Ultra-low latency product showcase built with Astro islands, hardware-accelerated motion choreography, and liquid translucent HUD controls.
+            </p>
+          </div>
+
+          <div class="pt-8 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/80 font-mono">
+                Astro v7
+              </span>
+              <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/80 font-mono">
+                Three.js
+              </span>
+              <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/80 font-mono">
+                GSAP
+              </span>
+            </div>
+            <PillButton href="#" variant="secondary" size="sm">
+              Launch Case →
+            </PillButton>
+          </div>
+        </GlassCard>
+
+        <!-- Stacked Component: High-Impact Performance Metrics (Cols 8-12 on desktop) -->
+        <GlassCard colSpan="lg:col-span-5 md:col-span-8" class="flex flex-col justify-between min-h-[384px]">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-mono text-white/50 uppercase tracking-wider">Metrics // System Health</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse"></span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                <p class="text-3xl font-bold font-mono text-white">99.8%</p>
+                <p class="text-xs font-mono text-white/50 mt-1 uppercase">LCP Optimization</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                <p class="text-3xl font-bold font-mono text-white">60 FPS</p>
+                <p class="text-xs font-mono text-white/50 mt-1 uppercase">Native Motion</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                <p class="text-3xl font-bold font-mono text-white">0.0 ms</p>
+                <p class="text-xs font-mono text-white/50 mt-1 uppercase">Cumulative Shift</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                <p class="text-3xl font-bold font-mono text-white">8 pt</p>
+                <p class="text-xs font-mono text-white/50 mt-1 uppercase">Grid Spatial Unit</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-white/60">
+            <span>AUDITED BY OPEN-SPEC</span>
+            <span class="text-[#3186FF]">ALL SYSTEMS GO</span>
+          </div>
+        </GlassCard>
+
+        <!-- React Island: MotionCard (Cols 1-6 on desktop) -->
+        <div class="lg:col-span-6 md:col-span-8">
+          <MotionCard
+            client:load
+            title="Framer Motion Reactive Island"
+            subtitle="Zero-overhead client-side interactive spring physics mounted selectively as an Astro island."
+            tech={["framer-motion", "react-19", "island-architecture"]}
+          />
+        </div>
+
+        <!-- GSAP Timeline Choreography Card (Cols 7-12 on desktop) -->
+        <GlassCard colSpan="lg:col-span-6 md:col-span-8" id="gsap-interactive-card" glow={true} class="cursor-pointer">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs uppercase tracking-widest font-mono text-white/60 font-medium">
+              GSAP Choreography Engine
+            </span>
+            <span id="gsap-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-[#3186FF] shadow-[0_0_8px_#3186FF]"></span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-200 transition-colors">
+            Complex Timeline Sequencing
+          </h3>
+          <p class="text-white/70 text-sm leading-relaxed mb-6">
+            Multi-stage micro-animations orchestrating hero typography, glass refraction borders, and fluid spatial transitions.
+          </p>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/90 font-mono">
+              gsap-3
+            </span>
+            <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/90 font-mono">
+              timeline-choreography
+            </span>
+            <span class="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/90 font-mono">
+              fluid-springs
+            </span>
+          </div>
+        </GlassCard>
+      </div>
+    </section>
+
+    <!-- Design System Foundation: 8 / 12 / 16 Grid & Token Map -->
+    <section id="system" class="space-y-8">
+      <div class="flex items-center gap-3">
+        <ChromeSparkle size={18} />
+        <h2 class="text-xs uppercase tracking-widest font-mono text-white/60">
+          02 // DESIGN SYSTEM SPECIFICATION TOKENS
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-panel p-6 rounded-3xl space-y-4">
+          <div class="w-10 h-10 rounded-2xl bg-[#FFFFFF] flex items-center justify-center text-stone-900 font-mono font-bold text-xs shadow-md">
+            W
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-white">Pure Canvas White</h4>
+            <p class="text-xs font-mono text-white/50">#FFFFFF // sRGB & P3</p>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed">
+            Reserved for high-contrast headlines, primary button text, and specular light rim highlights.
+          </p>
+        </div>
+
+        <div class="glass-panel p-6 rounded-3xl space-y-4">
+          <div class="w-10 h-10 rounded-2xl bg-[#1C1C1C] border border-white/20 flex items-center justify-center text-white font-mono font-bold text-xs shadow-md">
+            D
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-white">Obsidian Deep Dark</h4>
+            <p class="text-xs font-mono text-white/50">#1C1C1C // Neutral Dark Base</p>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed">
+            Dominant backdrop providing high contrast for liquid glassmorphism, eliminating eye strain.
+          </p>
+        </div>
+
+        <div class="glass-panel p-6 rounded-3xl space-y-4">
+          <div class="w-10 h-10 rounded-2xl gradient-electric-bg flex items-center justify-center text-white font-mono font-bold text-xs shadow-[0_0_16px_#3186FF]">
+            ⚡
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-white">Electric Blue Gradient</h4>
+            <p class="text-xs font-mono text-white/50">#3186FF // OKLCH Iridescent</p>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed">
+            Signature anchor for Big Tech pill buttons, focus rings, active glows, and avant-garde spark accents.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Quick Access / Existing Pages -->
-    <section class="p-6 rounded-2xl border border-stone-800/10 bg-white/50 backdrop-blur-sm space-y-4">
-      <h2 class="text-xl font-bold text-stone-900">Project Tools & OpenSpec</h2>
-      <p class="text-sm text-stone-700">
-        OpenSpec is initialized in this project with AI specs ready in <code class="px-1.5 py-0.5 rounded bg-stone-200 text-stone-900 font-mono text-xs">openspec/</code>.
+    <!-- Contact & Action Footer -->
+    <section id="contact" class="glass-panel p-10 md:p-16 rounded-3xl text-center space-y-6 relative overflow-hidden">
+      <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[#3186FF]/20 blur-3xl pointer-events-none"></div>
+      
+      <HudBadge text="READY FOR COLLABORATION" statusDot={true} statusColor="#3186FF" />
+      <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white max-w-xl mx-auto">
+        Let’s build something extraordinary.
+      </h2>
+      <p class="text-white/70 text-sm md:text-base max-w-md mx-auto leading-relaxed">
+        Have a project in mind or exploring future-facing creative development? Let's connect.
       </p>
-      <div class="flex flex-wrap gap-3 pt-2">
-        <a
-          href="/portfolio.html"
-          class="px-4 py-2 rounded-lg bg-stone-900 text-amber-100 text-sm font-medium hover:bg-stone-800 transition"
-        >
-          View Static portfolio.html
-        </a>
-        <a
-          href="/index.html"
-          class="px-4 py-2 rounded-lg bg-stone-200 text-stone-900 text-sm font-medium hover:bg-stone-300 transition"
-        >
-          View Static index.html
-        </a>
+      <div class="pt-4 flex flex-wrap justify-center gap-4">
+        <PillButton href="mailto:hello@fekdesign.studio" variant="primary" size="lg">
+          Get in Touch →
+        </PillButton>
+        <PillButton href="/portfolio.html" variant="secondary" size="lg">
+          View Static Archive
+        </PillButton>
       </div>
     </section>
+
+    <footer class="pt-12 pb-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-white/40 gap-4">
+      <p>© 2026 fekdesign. All rights reserved.</p>
+      <p>Astro + Tailwind v4 + Motion + GSAP + OpenSpec</p>
+    </footer>
   </main>
 
+  <!-- Client-side GSAP and Vanilla Motion Interactivity -->
   <script>
     import gsap from 'gsap';
     import { animate } from 'motion';
 
-    // GSAP Animation
+    // Hero Entry Animation
     gsap.from('#hero-title', {
-      y: 30,
+      y: 32,
       opacity: 0,
-      duration: 1,
+      duration: 1.1,
       ease: 'power3.out',
     });
 
     gsap.from('#hero-desc', {
-      y: 20,
+      y: 24,
       opacity: 0,
-      duration: 0.8,
+      duration: 0.9,
       delay: 0.2,
       ease: 'power3.out',
     });
 
-    // Vanilla Motion interaction
-    const gsapCard = document.getElementById('gsap-card');
-    if (gsapCard) {
+    // GSAP Interactive Card Hover
+    const gsapCard = document.getElementById('gsap-interactive-card');
+    const gsapDot = document.getElementById('gsap-dot');
+    if (gsapCard && gsapDot) {
       gsapCard.addEventListener('mouseenter', () => {
-        animate(gsapCard, { scale: 1.02 }, { duration: 0.2 });
+        animate(gsapCard, { y: -4, scale: 1.01 }, { duration: 0.25 });
+        gsap.to(gsapDot, { scale: 1.5, boxShadow: '0 0 16px #3186FF', duration: 0.2 });
       });
       gsapCard.addEventListener('mouseleave', () => {
-        animate(gsapCard, { scale: 1 }, { duration: 0.2 });
+        animate(gsapCard, { y: 0, scale: 1 }, { duration: 0.25 });
+        gsap.to(gsapDot, { scale: 1, boxShadow: '0 0 8px #3186FF', duration: 0.2 });
       });
     }
   </script>
