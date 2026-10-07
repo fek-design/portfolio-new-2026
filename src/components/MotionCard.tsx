@@ -18,21 +18,21 @@ export default function MotionCard({ title, subtitle, tech }: Props) {
     >
       {/* Specular top rim light */}
       <div
-        className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"
+        className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none"
         aria-hidden="true"
       />
 
       <div className="flex items-center justify-between mb-4">
-        <span className="text-xs uppercase tracking-widest font-mono text-white/60 font-medium">
+        <span className="text-xs uppercase tracking-widest font-mono text-slate-500 font-medium">
           Motion Reactive Island
         </span>
         <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#3186FF]" />
       </div>
 
-      <h3 className="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-200 transition-colors">
+      <h3 className="text-2xl font-bold text-[#1C1C1C] mb-2 tracking-tight group-hover:text-[#3186FF] transition-colors">
         {title}
       </h3>
-      <p className="text-white/70 text-sm leading-relaxed mb-6">
+      <p className="text-slate-600 text-sm leading-relaxed mb-6">
         {subtitle}
       </p>
 
@@ -40,7 +40,7 @@ export default function MotionCard({ title, subtitle, tech }: Props) {
         {tech.map((item) => (
           <span
             key={item}
-            className="px-3 py-1 text-xs rounded-full bg-white/[0.06] border border-white/10 text-white/90 font-mono"
+            className="px-3 py-1 text-xs rounded-full bg-slate-100 border border-black/[0.08] text-slate-800 font-mono font-medium"
           >
             {item}
           </span>
