@@ -14,11 +14,11 @@ const {
 } = Astro.props;
 ---
 
-<div class={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md text-[11px] font-mono uppercase tracking-wider text-white/80 shadow-sm ${className}`}>
+<div class={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md text-[11px] font-mono uppercase tracking-wider text-white/80 ${className}`}>
   {statusDot && (
     <span
-      class="w-2 h-2 rounded-full animate-pulse"
-      style={`background-color: ${statusColor}; box-shadow: 0 0 8px ${statusColor};`}
+      class="w-2 h-2 rounded-full"
+      style={`background-color: ${statusColor};`}
     ></span>
   )}
   <span>{text}</span>

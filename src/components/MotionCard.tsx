@@ -26,7 +26,7 @@ export default function MotionCard({ title, subtitle, tech }: Props) {
         <span className="text-xs uppercase tracking-widest font-mono text-white/60 font-medium">
           Motion Reactive Island
         </span>
-        <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#3186FF] shadow-[0_0_8px_#3186FF] animate-pulse" />
+        <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#3186FF]" />
       </div>
 
       <h3 className="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-200 transition-colors">

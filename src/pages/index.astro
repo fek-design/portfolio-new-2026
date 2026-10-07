@@ -32,7 +32,7 @@ import HudBadge from '../components/HudBadge.astro';
       </div>
     </header>
 
-    <!-- Hero Section: Big Tech Whitespace + Avant-Garde Flare -->
+    <!-- Hero Section: Big Tech Whitespace + Avant-Garde Flare (No Glow) -->
     <section class="text-center max-w-4xl mx-auto space-y-8 pt-8 md:pt-16">
       <div class="flex items-center justify-center gap-2">
         <HudBadge text="SYSTEM V2.4 // BIG TECH MINIMALISM" statusDot={true} statusColor="#3186FF" />
@@ -87,7 +87,7 @@ import HudBadge from '../components/HudBadge.astro';
 
       <div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-6">
         <!-- Scaled Component 1: Quantum Drive (Cols 1-7 on desktop) -->
-        <GlassCard colSpan="lg:col-span-7 md:col-span-8" glow={true} class="flex flex-col justify-between min-h-[384px]">
+        <GlassCard colSpan="lg:col-span-7 md:col-span-8" class="flex flex-col justify-between min-h-[384px]">
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-xs font-mono text-white/50 uppercase tracking-wider">Case 01 // Interactive WebGL</span>
@@ -126,7 +126,7 @@ import HudBadge from '../components/HudBadge.astro';
           <div>
             <div class="flex items-center justify-between mb-6">
               <span class="text-xs font-mono text-white/50 uppercase tracking-wider">Metrics // System Health</span>
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
@@ -166,12 +166,12 @@ import HudBadge from '../components/HudBadge.astro';
         </div>
 
         <!-- GSAP Timeline Choreography Card (Cols 7-12 on desktop) -->
-        <GlassCard colSpan="lg:col-span-6 md:col-span-8" id="gsap-interactive-card" glow={true} class="cursor-pointer">
+        <GlassCard colSpan="lg:col-span-6 md:col-span-8" id="gsap-interactive-card" class="cursor-pointer">
           <div class="flex items-center justify-between mb-4">
             <span class="text-xs uppercase tracking-widest font-mono text-white/60 font-medium">
               GSAP Choreography Engine
             </span>
-            <span id="gsap-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-[#3186FF] shadow-[0_0_8px_#3186FF]"></span>
+            <span id="gsap-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-[#3186FF]"></span>
           </div>
 
           <h3 class="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-200 transition-colors">
@@ -233,24 +233,22 @@ import HudBadge from '../components/HudBadge.astro';
         </div>
 
         <div class="glass-panel p-6 rounded-3xl space-y-4">
-          <div class="w-10 h-10 rounded-2xl gradient-electric-bg flex items-center justify-center text-white font-mono font-bold text-xs shadow-[0_0_16px_#3186FF]">
+          <div class="w-10 h-10 rounded-2xl gradient-electric-bg flex items-center justify-center text-white font-mono font-bold text-xs">
             ⚡
           </div>
           <div>
-            <h4 class="text-base font-bold text-white">Electric Blue Gradient</h4>
-            <p class="text-xs font-mono text-white/50">#3186FF // OKLCH Iridescent</p>
+            <h4 class="text-base font-bold text-white">Pure Blue Gradient</h4>
+            <p class="text-xs font-mono text-white/50">#3186FF // Monochromatic Blue</p>
           </div>
           <p class="text-xs text-white/70 leading-relaxed">
-            Signature anchor for Big Tech pill buttons, focus rings, active glows, and avant-garde spark accents.
+            Signature anchor for Big Tech pill buttons, focus rings, and avant-garde spark accents without color mixing or glow.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Contact & Action Footer -->
+    <!-- Contact & Action Footer (No Glow) -->
     <section id="contact" class="glass-panel p-10 md:p-16 rounded-3xl text-center space-y-6 relative overflow-hidden">
-      <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[#3186FF]/20 blur-3xl pointer-events-none"></div>
-      
       <HudBadge text="READY FOR COLLABORATION" statusDot={true} statusColor="#3186FF" />
       <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white max-w-xl mx-auto">
         Let’s build something extraordinary.
@@ -274,7 +272,7 @@ import HudBadge from '../components/HudBadge.astro';
     </footer>
   </main>
 
-  <!-- Client-side GSAP and Vanilla Motion Interactivity -->
+  <!-- Client-side GSAP and Vanilla Motion Interactivity (Clean, No Glow) -->
   <script>
     import gsap from 'gsap';
     import { animate } from 'motion';
@@ -301,11 +299,11 @@ import HudBadge from '../components/HudBadge.astro';
     if (gsapCard && gsapDot) {
       gsapCard.addEventListener('mouseenter', () => {
         animate(gsapCard, { y: -4, scale: 1.01 }, { duration: 0.25 });
-        gsap.to(gsapDot, { scale: 1.5, boxShadow: '0 0 16px #3186FF', duration: 0.2 });
+        gsap.to(gsapDot, { scale: 1.4, duration: 0.2 });
       });
       gsapCard.addEventListener('mouseleave', () => {
         animate(gsapCard, { y: 0, scale: 1 }, { duration: 0.25 });
-        gsap.to(gsapDot, { scale: 1, boxShadow: '0 0 8px #3186FF', duration: 0.2 });
+        gsap.to(gsapDot, { scale: 1, duration: 0.2 });
       });
     }
   </script>
