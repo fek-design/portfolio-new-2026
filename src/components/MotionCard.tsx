@@ -10,10 +10,10 @@ interface Props {
 export default function MotionCard({ title, subtitle, tech }: Props) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 32 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -6, scale: 1.01 }}
+      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -6, scale: 1.015, transition: { type: "spring", stiffness: 240, damping: 16 } }}
       className="glass-panel p-8 rounded-3xl relative overflow-hidden group cursor-pointer"
     >
       {/* Specular top rim light */}
